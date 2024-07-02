@@ -10,7 +10,10 @@ const Taskbar = (props: Props) => {
           {/* <li className={styles.taskbaritems}></li>
           <li className={styles.taskbaritems}></li>
           <li className={styles.taskbaritems}></li>
-          <li className={styles.taskbaritems}></li> */}
+          <li className={styles.taskbaritems}></li> 
+          <li className={styles.taskbaritems}></li> 
+          */}
+
         </ul>
       </div>
   )
