@@ -24,8 +24,9 @@ export default function RootLayout({
         <div id="mousepointer"><div></div></div>
         <div className="bg"></div>
         {/* <Loading/> */}
-        <Navbar />
-        <>{children}</>
+        {/* <Navbar /> */}
+        {/* <>{children}</> */}
+        <h1 style={{ }}>Site Under construction 🚧</h1>
 
         <Script src="/mousepointer.js" />
       </body>
