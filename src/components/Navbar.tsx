@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { FaGithub, FaHamburger, FaInstagram, FaLinkedin, FaReddit } from 'react-icons/fa'
 import { IoClose, IoShareSocial } from 'react-icons/io5'
 import { IoIosClose } from 'react-icons/io'
+import Taskbar from './Taskbar'
 
 
 const Navbar = () => {
@@ -36,14 +37,8 @@ const Navbar = () => {
       </div>
 
 
-      {/* <div className={styles.taskbar}>
-        <ul className={styles.taskbarlist}>
-          <li className={styles.taskbaritems}></li>
-          <li className={styles.taskbaritems}></li>
-          <li className={styles.taskbaritems}></li>
-          <li className={styles.taskbaritems}></li>
-        </ul>
-      </div> */}
+      
+      <Taskbar />
     </nav>
   )
 }

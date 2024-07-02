@@ -1,12 +1,6 @@
 import { FaInfoCircle } from "react-icons/fa";
 import styles from "./page.module.css";
 import { FaPhone } from "react-icons/fa6";
-import { Inter } from 'next/font/google'
-
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 
 export default function Home() {
