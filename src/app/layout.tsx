@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Teko } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar"
+import Script from "next/script";
+import Loading from "@/components/Loading";
 
-const inter = Inter({ subsets: ["latin"] });
+const teko = Teko({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Hey, I am Tushar! 😎",
@@ -15,13 +17,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
-
-      <body className={inter.className}>
+      <body className={teko.className}>
+        <div id="mousepointer"><div></div></div>
         <div className="bg"></div>
+        {/* <Loading/> */}
         <Navbar />
         <>{children}</>
+
+        <Script src="/mousepointer.js" />
       </body>
     </html>
   );
