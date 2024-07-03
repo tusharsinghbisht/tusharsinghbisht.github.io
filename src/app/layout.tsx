@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar"
 import Script from "next/script";
 import Loading from "@/components/Loading";
+import Taskbar from "@/components/Taskbar";
 
 const teko = Teko({ subsets: ["latin"] });
 
@@ -24,9 +25,9 @@ export default function RootLayout({
         <div id="mousepointer"><div></div></div>
         <div className="bg"></div>
         {/* <Loading/> */}
-        {/* <Navbar /> */}
-        {/* <>{children}</> */}
-        <h1 style={{ }}>Site Under construction 🚧</h1>
+        <Navbar />
+        <>{children}</>
+        <Taskbar/>
 
         <Script src="/mousepointer.js" />
       </body>

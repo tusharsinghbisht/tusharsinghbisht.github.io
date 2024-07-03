@@ -10,7 +10,9 @@
 
     justify-content: space-between;
 
-    position: fixed;
+    position: absolute;
+    /* background-color: red; */
+    z-index: 3;
     top: 0px;
 }
 

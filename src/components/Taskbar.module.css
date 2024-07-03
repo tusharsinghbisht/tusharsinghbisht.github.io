@@ -1,0 +1,103 @@
+.taskbar {
+    position: fixed;
+    bottom: 0px;
+    /* top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    justify-content: center;
+}
+
+.taskbarlist {
+    list-style: none;
+    display: flex;
+    background-color: rgba(80, 80, 80, 0.137);
+    box-shadow: 0px 0px 2px 0px rgba(255, 255, 255, 0.263);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 0px 20px;
+    /* filter: blur(10px); */
+    backdrop-filter: saturate(180%) blur(10px);
+}
+
+.taskbaritems, .taskbaritemselected {
+    margin: 20px 5px;
+    background-color: rgba(255, 255, 255, 0.115);
+    width: 80px;
+    aspect-ratio: 1;
+    font-size: 35px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+.taskbaritems span, .taskbaritemselected span {
+    text-transform: uppercase;
+    font-size: 20px;
+    position: absolute;
+    bottom: -30px;
+    transition: 0.5s;
+}
+.taskbaritems:hover, .taskbaritemselected {
+    background-color: rgba(255, 255, 255, 0.397);
+    /* box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.3); */
+    transform: scale(1.07);
+    font-size: 30px;
+}
+.taskbaritems:hover span {
+    bottom: -5px;
+    /* position: static; */
+}
+
+.tab {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 500px;
+    transition: 1s;
+    aspect-ratio: 1;
+    border-radius: 20px;
+
+    animation: tabOpen 0.2s;
+}
+@keyframes tabOpen {
+    0%   {
+        left: 45%;
+        top: 97%;
+        width: 0px;
+        border-radius: 100%;
+        z-index: -3;
+    }
+   100% {
+    left: 50%;
+    top: 50%;
+    width: 500px;
+    border-radius: 20px;
+    z-index: 2;
+   }
+  }
+.tabClose {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    z-index: -3;
+    bottom: 20px;
+    left: 45%;
+    transform: translate(-50%,-50%);
+    width: 0px;
+    transition: 0.2s;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 100%;
+}

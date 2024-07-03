@@ -2,12 +2,8 @@
 
 import React, { useState } from 'react'
 import styles from "./Navbar.module.css"
-import Link from 'next/link'
-import { FaGithub, FaHamburger, FaInstagram, FaLinkedin, FaReddit } from 'react-icons/fa'
+import { FaGithub, FaInstagram, FaLinkedin, FaReddit } from 'react-icons/fa'
 import { IoClose, IoShareSocial } from 'react-icons/io5'
-import { IoIosClose } from 'react-icons/io'
-import Taskbar from './Taskbar'
-
 
 const Navbar = () => {
   const [nav, setNav] = useState<Boolean>(false)
@@ -36,9 +32,6 @@ const Navbar = () => {
         </ul>
       </div>
 
-
-      
-      <Taskbar />
     </nav>
   )
 }
