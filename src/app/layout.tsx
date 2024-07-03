@@ -25,9 +25,10 @@ export default function RootLayout({
         <div id="mousepointer"><div></div></div>
         <div className="bg"></div>
         {/* <Loading/> */}
-        <Navbar />
+        {/* <Navbar />
         <>{children}</>
-        <Taskbar/>
+        <Taskbar/> */}
+        <h1>Site Under construction 🚧</h1>
 
         <Script src="/mousepointer.js" />
       </body>
