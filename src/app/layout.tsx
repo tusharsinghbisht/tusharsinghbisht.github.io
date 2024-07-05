@@ -28,6 +28,7 @@ export default function RootLayout({
         {/* <Navbar />
         <>{children}</>
         <Taskbar/> */}
+        <h1>Work under construction 🚧</h1>
 
         <Script src="/mousepointer.js" />
       </body>
