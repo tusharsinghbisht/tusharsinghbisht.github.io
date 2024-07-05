@@ -13,8 +13,8 @@ export default function Home() {
           </h4>
           <h2>I am a <span className={styles.highlighted2}>Programmer</span></h2>
           <div>
-            <button className={styles.morebtn}>Know More <span className={styles.arw}><FaInfoCircle /></span></button>
-            <button className={styles.contactbtn}>Contact Me <span className={styles.arw}><FaPhone /></span></button>
+            <button className={styles.morebtn} id="aboutBtn">Know More <span className={styles.arw}><FaInfoCircle /></span></button>
+            <button className={styles.contactbtn} id="contactBtn">Contact Me <span className={styles.arw}><FaPhone /></span></button>
           </div>
 
         </div>

@@ -12,12 +12,12 @@
 
     position: absolute;
     /* background-color: red; */
-    z-index: 3;
+    z-index: 2;
     top: 0px;
 }
 
 .logo, .hamburger{
-    font-size: 40px;
+    font-size: 35px;
     margin-left: 20px;
     text-transform: uppercase;
     cursor: pointer;
@@ -55,8 +55,8 @@
     bottom: 20px;
     right: 20px;
     background-color: rgb(255, 255, 255);
-    font-size: 40px;
-    width: 80px;
+    font-size:35px;
+    width: 70px;
     aspect-ratio: 1;
     text-align: center;
     border-radius: 100%;
@@ -67,7 +67,7 @@
     cursor: pointer;
     box-shadow: -3px -3px 10px 0px rgb(0, 0, 0) inset;
     transition: 0.3s;
-    z-index: 6;
+    z-index:999;
 }
 .social:active {
     box-shadow: -1px -1px 10px 0px rgb(0, 0, 0) inset;
@@ -122,7 +122,7 @@
     bottom: 0%;
     right: 0%;
     margin: 50px;
-    z-index: 5;
+    z-index: 998;
     border-radius: 50px;
 }
 
@@ -135,7 +135,7 @@
     width: 100%;
 }
 .icon {
-    font-size: 25px;
+    font-size: 23px;
     padding: 10px;
     border-radius: 20px;
     user-select: none;
@@ -149,8 +149,8 @@
 
     position: relative;
     transform: skew(50deg, -20deg) scaleX(1.5);
-    border-bottom: 7px solid rgb(231, 231, 231);
-    border-left: 7px solid  rgb(202, 202, 202);
+    border-bottom: 6px solid rgb(231, 231, 231);
+    border-left: 6px solid  rgb(202, 202, 202);
     transition: 0.3s;
     z-index: 1;
     /* box-shadow: -4px -4px 30px 0px rgba(0, 0, 0, 0.355); */
@@ -160,11 +160,11 @@
     box-shadow: none;
     border-bottom: 2px solid  rgb(231, 231, 231);
     border-left: 2px solid  rgb(231, 231, 231);
-    transform: skew(50deg, -20deg) scaleX(1.6) translateY(4px) translateX(-3px);
+    transform: skew(50deg, -20deg) scaleX(1.6) translateY(4px) translateX(-2px);
 }
 .socialMenu.socialactive {
-    width: 150px;
-    height: 300px;
+    width: 140px;
+    height: 270px;
     margin: 50px 30px;
     border-radius: 0;
 }

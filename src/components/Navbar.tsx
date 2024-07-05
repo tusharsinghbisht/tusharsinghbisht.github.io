@@ -10,16 +10,16 @@ const Navbar = () => {
   const [socialmenu, setsocialmenu] = useState<Boolean>(false)
 
   return (
-    <nav className={styles.navbar}>
-      <span className={styles.logo}>Tushar<span>.</span></span>
-
-     
+    <>
+      <nav className={styles.navbar}>
+        <span className={styles.logo}>Tushar<span>.</span></span>
+      </nav>
       <button className={styles.social} onClick={() => setsocialmenu(!socialmenu)}>
         {
           socialmenu ?
-          <IoClose fill="black" className={styles.share} />
-          :
-          <IoShareSocial fill='black' className={styles.share} />
+            <IoClose fill="black" className={styles.share} />
+            :
+            <IoShareSocial fill='black' className={styles.share} />
         }
       </button>
 
@@ -31,8 +31,7 @@ const Navbar = () => {
           <li className={styles.icon}><FaReddit fill='red' /></li>
         </ul>
       </div>
-
-    </nav>
+    </>
   )
 }
 

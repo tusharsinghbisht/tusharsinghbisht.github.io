@@ -11,3 +11,6 @@ document.body.addEventListener("mouseleave", () => {
 document.body.addEventListener("mouseenter", () => {
     pointer.style.display = "flex"
 })
+
+document.getElementById("contactBtn").addEventListener("click", () => document.getElementById("contactTab").click())
+document.getElementById("aboutBtn").addEventListener("click", () => document.getElementById("aboutTab").click())

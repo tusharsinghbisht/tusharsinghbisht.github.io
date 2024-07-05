@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: 1000;
+    z-index: 100000;
 }
 
 .loader::after {
@@ -18,7 +18,7 @@
     background: linear-gradient(130deg, #ffffff44, #ffffff00);
     top: 0px;
     left: 0px;
-    z-index: 10001;
+    z-index: 100001;
 }
 
 .loadtxt {

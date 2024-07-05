@@ -7,6 +7,27 @@
 ::selection {
     background: rgba(255, 255, 255, 0.136);
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(19, 19, 19); 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+background: #ffffff17; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #ffffff3f; 
+}
+
 button {
     background: none;
     outline: none;
