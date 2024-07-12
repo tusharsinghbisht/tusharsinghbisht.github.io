@@ -1,7 +1,7 @@
 "use client"
-import React, { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react'
 import styles from './Taskbar.module.css'
-import { FaCode, FaHeadphones, FaHome, FaPhoneAlt } from 'react-icons/fa'
+import { FaCode, FaHeadphones, FaHome, FaJs, FaNodeJs, FaPhoneAlt, FaPython, FaReact } from 'react-icons/fa'
 import { IoTerminal } from 'react-icons/io5'
 import { Inter, Source_Code_Pro } from 'next/font/google'
 import { TypeAnimation } from 'react-type-animation'
@@ -19,13 +19,10 @@ const inter = Inter({ subsets: ["latin"] })
 
 const Tab = ({ children, title, isOpen, setOpen }: TabProps) => {
   const [fullSize, setfullSize] = useState(false)
-  const tabRef = useRef(null)
 
-
-  useEffect(() => setfullSize(false), [isOpen])
 
   return (
-    <div ref={tabRef} className={isOpen ? (fullSize ? `${styles.tab} ${styles.tabFull}` : styles.tab) : styles.tabClose}>
+    <div className={isOpen ? (fullSize ? `${styles.tab} ${styles.tabFull}` : styles.tab) : styles.tabClose}>
       <div className={styles.tabtopbar}>
         <div className={styles.topbarleft}>
           <div onClick={() => setOpen(false)}></div>
@@ -72,9 +69,44 @@ const AboutTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_st
 const SkillsTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_state: Dispatch<SetStateAction<Boolean>> }) => {
   return (
     <Tab title="Skills" isOpen={tab_state} setOpen={set_tab_state}>
-      <div className={`${inter.className} ${styles.skillstab}`}>
-        <h2>Skills 🔧</h2>
-        <p>Here is my complete skill set</p>
+      <div className={styles.skillstab}>
+        <h2 className={inter.className} >Skills 🔧</h2>
+        <p className={inter.className} >Here is my complete skill set</p>
+
+        <div className={styles.skillboxes}>
+          <div className={styles.skillbox}>
+            <span></span><span></span>
+            <span><p>Bencho python ati hai</p></span>
+            <span>
+              <FaPython fill='#7b97ff' className={styles.skillicon} />
+              <h4 style={{ color:"#7b97ff" }}>Python</h4>
+            </span>
+          </div>
+          <div className={styles.skillbox}>
+          <span></span><span></span>
+          <span><p>Bencho python ati hai</p></span>
+            <span>
+              <FaJs fill='#f5ff45' className={styles.skillicon} />
+              <h4 style={{ color:"#f5ff45" }}>Javascript</h4>
+            </span>
+          </div>
+          <div className={styles.skillbox}>
+          <span></span><span></span>
+          <span><p>Bencho python ati hai</p></span>
+            <span>
+              <FaReact fill='#0bd7ca' className={styles.skillicon} />
+              <h4 style={{color: "#0bd7ca"}}>React</h4>
+            </span>
+          </div>
+          <div className={styles.skillbox}>
+          <span></span><span></span>
+          <span><p>Bencho python ati hai</p></span>
+            <span>
+              <FaNodeJs fill='#76ff59' className={styles.skillicon} />
+              <h4 style={{color: "#76ff59"}}>NodeJS</h4>
+            </span>
+          </div>
+        </div>
       </div>
     </Tab>
   )
@@ -100,10 +132,10 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
           <p>Don{"'"}t worry! your data will be safe</p>
         </div>
         <form className={styles.contactform}>
-          <input type="text" name="" placeholder="Enter Name" />
-          <input type="text" name="" placeholder="Enter Email" />
-          <textarea cols={5} rows={8} placeholder='Enter your query'></textarea>
-          <button>Submit</button>
+          <input name='name' type="text" placeholder="Enter Name" required={true} />
+          <input name='email' type="email" placeholder="Enter Email" required={true}  />
+          <textarea name='message' cols={5} rows={8} placeholder='Enter your query' required={true} minLength={30}></textarea>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </Tab>

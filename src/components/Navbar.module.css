@@ -151,7 +151,7 @@
     transform: skew(50deg, -20deg) scaleX(1.5);
     border-bottom: 6px solid rgb(231, 231, 231);
     border-left: 6px solid  rgb(202, 202, 202);
-    transition: 0.3s;
+    transition: 0.4s;
     z-index: 1;
     /* box-shadow: -4px -4px 30px 0px rgba(0, 0, 0, 0.355); */
 }   
@@ -167,4 +167,31 @@
     height: 270px;
     margin: 50px 30px;
     border-radius: 0;
+}
+
+@media only screen and (max-width: 550px) {
+    .social {
+        font-size: 25px;
+        width: 55px;
+        top: 20px;
+        bottom: auto;
+        z-index: 2;
+    }
+    .icon {
+        font-size: 18px;
+        padding: 8px;
+    }
+    .socialMenu{
+        top: 30px;
+        right: 30px;
+        left: auto;
+        bottom: auto;
+        margin: 0px;
+        z-index: 1;
+    }
+    .socialMenu.socialactive {
+        margin: 0px;
+        height: 220px;
+        width: 100px;
+    }
 }
