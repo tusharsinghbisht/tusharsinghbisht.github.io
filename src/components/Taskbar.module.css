@@ -308,6 +308,7 @@
     align-items: center;
     justify-content: center;
     margin: 10px;
+    position: relative;
 }
 
 .contactform input,
@@ -344,8 +345,50 @@
 .contactform button:hover {
     background-color: rgb(30, 195, 63);
 }
+.contactform p {
+    font-size: 18px;
+    color: #c0d5ff;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.contactdisabled::before, .contactsubmited::before {
+    content: "";
+    position: absolute;
+    width: 110%;
+    height: 110%;border-radius: 12px;
+    z-index: 2;
+    background-color: rgba(53, 53, 53, 0.85);
+    opacity: 1;
+}
+.contactdisabled::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    width: 70px;
+    aspect-ratio: 1;
+    background-color: transparent;
+    border: 5px solid transparent;
+    border-top-color: #ccc8c8;
+    box-shadow: 0px 0px 0px 2px #ffffff4d;
+    border-radius: 100%;
+    animation: rotate 1s  infinite ease-in-out;
+}
 
+.contactsubmited::after {
+    content: "✅ Form Submitted, will reply shortly";
+    white-space: pre-wrap;
+    padding: 0px 10px;
+    text-align: center;
+    color: #ccc8c8;
+    text-shadow: 0px 0px 3px #00000058;
+    position: absolute;
+    z-index: 3;
+}
 
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 @media only screen and (max-width: 900px) {
     .contacttab {
         flex-direction: column;
@@ -464,6 +507,8 @@
 
 .skillbox span:nth-child(3) p {
     font-size: 20px;
+    line-height: 1;
+    padding: 0px 8px;
 }
 
 
@@ -472,17 +517,36 @@
         display: none;
     }
     .tab {
-        width: 100vw;
-        height: 100vh;
+        width: 97vw;
+        height: 97vh;
+        animation: tabOpenMobile 0.4s;
+    }
+    
+
+    @keyframes tabOpenMobile {
+        from {
+            opacity: 0.6;
+            top: 150%;
+            width: 97vw;
+            height: 97vh;
+        }
     }
     .tabFull {
-        width: 100vw;
-        height: 100vh;
+        width: 97vw;
+        height: 97vh;
     }
     .blogtab::after {
         width: 80%;
     }
     .abouttext p {
         font-size: 15px!important;
+    }
+    .tabClose {
+        width: 97vw;
+        opacity: 0.6;
+        height: 97vh;
+        top: 150%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }

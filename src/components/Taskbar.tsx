@@ -76,34 +76,34 @@ const SkillsTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_s
         <div className={styles.skillboxes}>
           <div className={styles.skillbox}>
             <span></span><span></span>
-            <span><p>Bencho python ati hai</p></span>
+            <span><p style={{ color: "#7b97ff" }}>I have a ton of experience in python</p></span>
             <span>
               <FaPython fill='#7b97ff' className={styles.skillicon} />
-              <h4 style={{ color:"#7b97ff" }}>Python</h4>
+              <h4 style={{ color: "#7b97ff" }}>Python</h4>
             </span>
           </div>
           <div className={styles.skillbox}>
-          <span></span><span></span>
-          <span><p>Bencho python ati hai</p></span>
+            <span></span><span></span>
+            <span><p style={{ color: "#f5ff45" }}>Web Developer, Knows HTML, CSS, Javascript and tyepscript</p></span>
             <span>
               <FaJs fill='#f5ff45' className={styles.skillicon} />
-              <h4 style={{ color:"#f5ff45" }}>Javascript</h4>
+              <h4 style={{ color: "#f5ff45" }}>Javascript</h4>
             </span>
           </div>
           <div className={styles.skillbox}>
-          <span></span><span></span>
-          <span><p>Bencho python ati hai</p></span>
+            <span></span><span></span>
+            <span><p style={{ color: "#0bd7ca" }}>Worked with React and NextJS and many more web frameworks</p></span>
             <span>
               <FaReact fill='#0bd7ca' className={styles.skillicon} />
-              <h4 style={{color: "#0bd7ca"}}>React</h4>
+              <h4 style={{ color: "#0bd7ca" }}>React</h4>
             </span>
           </div>
           <div className={styles.skillbox}>
-          <span></span><span></span>
-          <span><p>Bencho python ati hai</p></span>
+            <span></span><span></span>
+            <span><p style={{ color: "#76ff59" }}>Worked with frameworks like express.js for server side scripting</p></span>
             <span>
               <FaNodeJs fill='#76ff59' className={styles.skillicon} />
-              <h4 style={{color: "#76ff59"}}>NodeJS</h4>
+              <h4 style={{ color: "#76ff59" }}>NodeJS</h4>
             </span>
           </div>
         </div>
@@ -124,6 +124,43 @@ const BlogTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_sta
 }
 
 const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_state: Dispatch<SetStateAction<Boolean>> }) => {
+
+  const [result, setResult] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [submited, setSubmited] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "", email: "", message: ""
+  })
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true)
+    e.preventDefault();
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "deeb8091-a275-44b8-8c4d-f4ac4407dc8d",
+        ...formData
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setLoading(false)
+      setSubmited(true)
+      setFormData({ name: "", email:"", message: "" })
+    } else {
+      console.log("Error", data);
+      setLoading(false)
+      setResult(data.message);
+    }
+  };
+
   return (
     <Tab title="Contact" isOpen={tab_state} setOpen={set_tab_state}>
       <div className={`${inter.className} ${styles.contacttab}`}>
@@ -131,10 +168,11 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
           <h2>Let{"'"}s get in touch! 👋</h2>
           <p>Don{"'"}t worry! your data will be safe</p>
         </div>
-        <form className={styles.contactform}>
-          <input name='name' type="text" placeholder="Enter Name" required={true} />
-          <input name='email' type="email" placeholder="Enter Email" required={true}  />
-          <textarea name='message' cols={5} rows={8} placeholder='Enter your query' required={true} minLength={30}></textarea>
+        <form onSubmit={onSubmit} className={`${styles.contactform} ${loading ? styles.contactdisabled : ""}  ${submited ? styles.contactsubmited : ""}`}>
+          <p>{result}</p>
+          <input value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} type="text" placeholder="Enter Name" required={true} />
+          <input value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} type="email" placeholder="Enter Email" required={true} />
+          <textarea value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} cols={5} rows={8} placeholder='Enter your query' required={true} minLength={30}></textarea>
           <button type="submit">Submit</button>
         </form>
       </div>

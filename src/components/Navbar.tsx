@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import styles from "./Navbar.module.css"
-import { FaGithub, FaInstagram, FaLinkedin, FaReddit } from 'react-icons/fa'
+import { FaDiscord, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { IoClose, IoShareSocial } from 'react-icons/io5'
 
 const Navbar = () => {
@@ -24,12 +24,12 @@ const Navbar = () => {
       </button>
 
       <div className={`${styles.socialMenu} ${socialmenu ? styles.socialactive : ""}`}>
-        <ul className={styles.socialList}>
-          <li className={styles.icon}><FaGithub fill='black' /></li>
-          <li className={styles.icon}><FaInstagram fill='pink' /></li>
-          <li className={styles.icon}><FaLinkedin fill='blue' /></li>
-          <li className={styles.icon}><FaReddit fill='red' /></li>
-        </ul>
+        <div className={styles.socialList}>
+          <a className={styles.icon} href='https://github.com/tusharsinghbisht' target='__blank'><FaGithub fill='black' /></a>
+          <a className={styles.icon} href='https://www.instagram.com/tushar_coder/' target='__blank'><FaInstagram fill='#DD2A7B' /></a>
+          <a className={styles.icon} href='https://www.linkedin.com/in/tushar-singh-bisht-289092306/' target='__blank'><FaLinkedin fill='#0077B5' /></a>
+          <a className={styles.icon} href='https://discordapp.com/users/707421998078492744' target='__blank'><FaDiscord fill='#7289DA' /></a>
+        </div>
       </div>
     </>
   )

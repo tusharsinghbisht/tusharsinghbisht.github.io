@@ -10,7 +10,7 @@ const teko = Teko({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Hey, I am Tushar! 😎",
-  description: "Stay tuned... someting is coming soon",
+  description: "Stay tuned... someting is coming soon"
 };
 
 export default function RootLayout({
@@ -29,7 +29,7 @@ export default function RootLayout({
         <>{children}</>
         <Taskbar/>
         {/* <h1>Work under construction 🚧</h1> */}
-
+        
         <Script src="/mousepointer.js" />
       </body>
     </html>
