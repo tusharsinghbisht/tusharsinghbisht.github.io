@@ -50,7 +50,7 @@ const AboutTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_st
           <TypeAnimation
             style={{ whiteSpace: 'pre-line', height: '195px', display: 'block' }}
             sequence={[
-              `Hey i am Tushar! I am a programmer\nI am a passionate programmer aspiring enginner\nI love to code`,
+              `👦 Hey i am Tushar (He/Him)!\n💁 I am a 18 year old boy\n💻 I am a passionate programmer\n💖 I love to code, works in different programming languages\n🔧 Currently an Engineering Student\n🕸️ Worked as Web Developer (Full Stack)\n👓 Currently learning DSA in C/C++ `,
               1000,
               ''
             ]}
