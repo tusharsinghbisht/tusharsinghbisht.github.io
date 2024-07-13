@@ -1,10 +1,11 @@
 "use client"
-import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react'
+import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
 import styles from './Taskbar.module.css'
 import { FaCode, FaHeadphones, FaHome, FaJs, FaNodeJs, FaPhoneAlt, FaPython, FaReact } from 'react-icons/fa'
 import { IoTerminal } from 'react-icons/io5'
 import { Inter, Source_Code_Pro } from 'next/font/google'
 import { TypeAnimation } from 'react-type-animation'
+import { getCookie, setCookie } from '@/utils/cookies'
 
 type TabProps = {
   children: ReactNode
@@ -132,6 +133,13 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
     name: "", email: "", message: ""
   })
 
+  useEffect(() => {
+    const s = getCookie("contact_form")
+    if (s == "yes") {
+      setSubmited(true)
+    }
+  }, [submited])
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true)
     e.preventDefault();
@@ -152,6 +160,7 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
 
     if (data.success) {
       setLoading(false)
+      setCookie("contact_form", "yes", 1)
       setSubmited(true)
       setFormData({ name: "", email:"", message: "" })
     } else {
