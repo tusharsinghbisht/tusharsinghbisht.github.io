@@ -116,6 +116,7 @@
         left: 50%;
         width: 0px;
         height: 0px;
+        z-index: -3;
     }
 }
 
@@ -529,6 +530,7 @@
             top: 50%;
             left: -50%;
             width: 97vw;
+            z-index: 2;
             height: 97vh;
         }
     }
@@ -546,6 +548,7 @@
         width: 97vw;
         opacity: 0.6;
         height: 97vh;
+        z-index: 2;
         top: 50%;
         left: -50%;
         transform: translate(-50%, -50%);

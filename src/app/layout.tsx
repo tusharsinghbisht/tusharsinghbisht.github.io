@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={teko.className}>
         <div id="mousepointer"><div></div></div>
         <div className="bg"></div>
-        {/* <Loading/> */}
+        <Loading/>
         <Navbar />
         <>{children}</>
         <Taskbar/>
