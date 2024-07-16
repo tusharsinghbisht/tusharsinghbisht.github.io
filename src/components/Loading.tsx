@@ -6,7 +6,7 @@ const Loading = () => {
     const [load, setLoad] = useState<Boolean>(true)
 
     useEffect(() => {
-        setInterval(() => setLoad(false), 2500)
+        setInterval(() => setLoad(false), 1500)
     })
 
     if (load) {

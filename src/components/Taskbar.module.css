@@ -129,9 +129,9 @@
     position: absolute;
     background-color: rgb(55, 55, 55);
     z-index: -3;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 100%!important;
+    left: 50%!important;
+    transform: translate(-50%, -50%)!important;
     width: 0px;
     height: 0px;
     transition: 0.5s;
@@ -167,8 +167,14 @@
 
 .topbarleft div:nth-child(3) {
     background-color: rgb(234, 255, 0);
+    cursor:move;
 }
-
+.topbarleft div:nth-child(3):hover {
+    background-color: rgb(173, 185, 34);
+}
+.topbarleft div:nth-child(3):active {
+    cursor: move;
+}
 .topbarleft {
     display: flex;
 }
@@ -549,8 +555,8 @@
         opacity: 0.6;
         height: 97vh;
         z-index: 2;
-        top: 50%;
-        left: -50%;
-        transform: translate(-50%, -50%);
+        top: 50%!important;
+        left: -50%!important;
+        transform: translate(-50%, -50%)!important;
     }
 }

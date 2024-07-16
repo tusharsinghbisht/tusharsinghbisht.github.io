@@ -1,5 +1,5 @@
 "use client"
-import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
+import React, { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react'
 import styles from './Taskbar.module.css'
 import { FaCode, FaHeadphones, FaHome, FaJs, FaNodeJs, FaPhoneAlt, FaPython, FaReact } from 'react-icons/fa'
 import { IoTerminal } from 'react-icons/io5'
@@ -20,15 +20,26 @@ const inter = Inter({ subsets: ["latin"] })
 
 const Tab = ({ children, title, isOpen, setOpen }: TabProps) => {
   const [fullSize, setfullSize] = useState(false)
+  const [drag, setDrag] = useState(false)
+  const tabRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => setDrag(false), [isOpen])
+  // const handleDrag = (e: MouseEvent) => {
+  const handleDrag = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (tabRef.current != null) {
+      tabRef.current.style.left = `${e.clientX + tabRef.current.offsetWidth / 2 - 70}px`
+      tabRef.current.style.top = `${e.clientY + tabRef.current.offsetHeight / 2 - 15}px`
+    }
+  }
 
   return (
-    <div className={isOpen ? (fullSize ? `${styles.tab} ${styles.tabFull}` : styles.tab) : styles.tabClose}>
+    <div ref={tabRef} style={{ transition: drag ? "0s" : "0.4s" }} className={isOpen ? (fullSize ? `${styles.tab} ${styles.tabFull}` : styles.tab) : styles.tabClose}>
       <div className={styles.tabtopbar}>
         <div className={styles.topbarleft}>
           <div onClick={() => setOpen(false)}></div>
           <div onClick={() => setfullSize(!fullSize)}></div>
-          <div onClick={() => setOpen(false)}></div>
+          <div style={{ cursor: drag ? "move" : 'pointer' }} onMouseMove={handleDrag} onClick={() => setDrag(!drag)} onMouseEnter={() => setDrag(true)} onMouseLeave={() => setDrag(false)}></div>
+          {/* <div style={{ cursor: drag ? "move" : 'pointer' }} onClick={() => setDrag(!drag)} onMouseEnter={() => setDrag(true)} onMouseLeave={() => setDrag(false)}></div> */}
         </div>
 
         <div className={styles.topbartitle}>{title}</div>
@@ -162,7 +173,7 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
       setLoading(false)
       setCookie("contact_form", "yes", 1)
       setSubmited(true)
-      setFormData({ name: "", email:"", message: "" })
+      setFormData({ name: "", email: "", message: "" })
     } else {
       console.log("Error", data);
       setLoading(false)
@@ -179,9 +190,9 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
         </div>
         <form onSubmit={onSubmit} className={`${styles.contactform} ${loading ? styles.contactdisabled : ""}  ${submited ? styles.contactsubmited : ""}`}>
           <p>{result}</p>
-          <input value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} type="text" placeholder="Enter Name" required={true} />
-          <input value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} type="email" placeholder="Enter Email" required={true} />
-          <textarea value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} cols={5} rows={8} placeholder='Enter your query' required={true} minLength={30}></textarea>
+          <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" placeholder="Enter Name" required={true} />
+          <input value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" placeholder="Enter Email" required={true} />
+          <textarea value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} cols={5} rows={8} placeholder='Enter your query' required={true} minLength={30}></textarea>
           <button type="submit">Submit</button>
         </form>
       </div>
