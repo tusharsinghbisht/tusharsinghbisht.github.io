@@ -1,70 +1,141 @@
-"use client"
-import React, { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react'
-import styles from './Taskbar.module.css'
-import { FaCode, FaHeadphones, FaHome, FaJs, FaNodeJs, FaPhoneAlt, FaPython, FaReact } from 'react-icons/fa'
-import { IoTerminal } from 'react-icons/io5'
-import { Inter, Source_Code_Pro } from 'next/font/google'
-import { TypeAnimation } from 'react-type-animation'
-import { getCookie, setCookie } from '@/utils/cookies'
+"use client";
+import React, {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import styles from "./Taskbar.module.css";
+import {
+  FaCode,
+  FaHeadphones,
+  FaHome,
+  FaJs,
+  FaNodeJs,
+  FaPhoneAlt,
+  FaPython,
+  FaReact,
+} from "react-icons/fa";
+import { IoTerminal } from "react-icons/io5";
+import { Inter, Source_Code_Pro } from "next/font/google";
+import { TypeAnimation } from "react-type-animation";
+import { getCookie, setCookie } from "@/utils/cookies";
 
 type TabProps = {
-  children: ReactNode
-  title: String
-  isOpen: Boolean
-  setOpen: Dispatch<SetStateAction<Boolean>>
+  children: ReactNode;
+  title: String;
+  isOpen: Boolean;
+  setOpen: Dispatch<SetStateAction<Boolean>>;
+};
 
-}
-
-const srccodepro = Source_Code_Pro({ subsets: ["latin"] })
-const inter = Inter({ subsets: ["latin"] })
+const srccodepro = Source_Code_Pro({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 const Tab = ({ children, title, isOpen, setOpen }: TabProps) => {
-  const [fullSize, setfullSize] = useState(false)
-  const [drag, setDrag] = useState(false)
-  const tabRef = useRef<HTMLDivElement>(null)
+  const [fullSize, setfullSize] = useState(false);
+  const [drag, setDrag] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const tabRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setDrag(false), [isOpen])
+  useEffect(() => {
+    // setDrag(false)
+    setPosition({
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+    });
+  }, []);
   // const handleDrag = (e: MouseEvent) => {
-  const handleDrag = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (tabRef.current != null) {
-      tabRef.current.style.left = `${e.clientX + tabRef.current.offsetWidth / 2 - 70}px`
-      tabRef.current.style.top = `${e.clientY + tabRef.current.offsetHeight / 2 - 15}px`
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    setDrag(true);
+    setOffset({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (drag) {
+      setPosition({
+        x: e.clientX - offset.x,
+        y: e.clientY - offset.y,
+      });
     }
-  }
+  };
+
+  const handleMouseUp = () => setDrag(false);
+
+  const expandTab = () => {
+    setfullSize(!fullSize);
+  };
 
   return (
-    <div ref={tabRef} style={{ transition: drag ? "0s" : "0.4s" }} className={isOpen ? (fullSize ? `${styles.tab} ${styles.tabFull}` : styles.tab) : styles.tabClose}>
-      <div className={styles.tabtopbar}>
+    <div
+      style={{
+        top: fullSize ? window.innerHeight / 2 : position.y,
+        left: fullSize ? window.innerWidth / 2 : position.x,
+        transition: drag ? "0s" : "0.4s",
+      }}
+      className={
+        isOpen
+          ? fullSize
+            ? `${styles.tab} ${styles.tabFull}`
+            : styles.tab
+          : styles.tabClose
+      }
+    >
+      <div
+        className={styles.tabtopbar}
+        onMouseDown={!fullSize ? handleMouseDown : () => {}}
+        onMouseMove={!fullSize ? handleMouseMove : () => {}}
+        onMouseUp={!fullSize ? handleMouseUp : () => {}}
+        onMouseLeave={!fullSize ? handleMouseUp : () => {}}
+      >
         <div className={styles.topbarleft}>
           <div onClick={() => setOpen(false)}></div>
-          <div onClick={() => setfullSize(!fullSize)}></div>
-          <div style={{ cursor: drag ? "move" : 'pointer' }} onMouseMove={handleDrag} onClick={() => setDrag(!drag)} onMouseEnter={() => setDrag(true)} onMouseLeave={() => setDrag(false)}></div>
+          <div onClick={expandTab}></div>
+          {/* <div style={{ cursor: drag ? "move" : 'pointer' }} onMouseMove={handleDrag} onClick={() => setDrag(!drag)} onMouseEnter={() => setDrag(true)} onMouseLeave={() => setDrag(false)}></div> */}
+          <div></div>
           {/* <div style={{ cursor: drag ? "move" : 'pointer' }} onClick={() => setDrag(!drag)} onMouseEnter={() => setDrag(true)} onMouseLeave={() => setDrag(false)}></div> */}
         </div>
 
         <div className={styles.topbartitle}>{title}</div>
-
       </div>
-      <div className={styles.tabcontent}>
-        {children}
-      </div>
+      <div className={styles.tabcontent}>{children}</div>
     </div>
-  )
-}
+  );
+};
 
-const AboutTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_state: Dispatch<SetStateAction<Boolean>> }) => {
+const AboutTab = ({
+  tab_state,
+  set_tab_state,
+}: {
+  tab_state: Boolean;
+  set_tab_state: Dispatch<SetStateAction<Boolean>>;
+}) => {
   return (
     <Tab title="About" isOpen={tab_state} setOpen={set_tab_state}>
       <div className={`${srccodepro.className} ${styles.abouttext}`}>
-        <p><span className={styles.yellow}>USER@MACHINE</span> <span className={styles.pink}>/c/usr/bin</span></p>
-        <p>$ <span className={styles.blue}>source</span> ./aboutme.bash</p>
+        <p>
+          <span className={styles.yellow}>USER@MACHINE</span>{" "}
+          <span className={styles.pink}>/c/usr/bin</span>
+        </p>
+        <p>
+          $ <span className={styles.blue}>source</span> ./aboutme.bash
+        </p>
         <p>
           <TypeAnimation
-            style={{ whiteSpace: 'pre-line', height: '195px', display: 'block' }}
+            style={{
+              whiteSpace: "pre-line",
+              height: "195px",
+              display: "block",
+            }}
             sequence={[
               `👦 Hey i am Tushar (He/Him)!\n💁 I am a 18 year old boy\n💻 I am a passionate programmer\n💖 I love to code, works in different programming languages\n🔧 Currently an Engineering Student\n🕸️ Worked as Web Developer (Full Stack)\n👓 Currently learning DSA in C/C++ `,
               1000,
-              ''
+              "",
             ]}
             speed={50}
             repeat={Infinity}
@@ -72,59 +143,89 @@ const AboutTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_st
           />
         </p>
       </div>
-
     </Tab>
-  )
-}
+  );
+};
 
-
-const SkillsTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_state: Dispatch<SetStateAction<Boolean>> }) => {
+const SkillsTab = ({
+  tab_state,
+  set_tab_state,
+}: {
+  tab_state: Boolean;
+  set_tab_state: Dispatch<SetStateAction<Boolean>>;
+}) => {
   return (
     <Tab title="Skills" isOpen={tab_state} setOpen={set_tab_state}>
       <div className={styles.skillstab}>
-        <h2 className={inter.className} >Skills 🔧</h2>
-        <p className={inter.className} >Here is my complete skill set</p>
+        <h2 className={inter.className}>Skills 🔧</h2>
+        <p className={inter.className}>Here is my complete skill set</p>
 
         <div className={styles.skillboxes}>
           <div className={styles.skillbox}>
-            <span></span><span></span>
-            <span><p style={{ color: "#7b97ff" }}>I have a ton of experience in python</p></span>
+            <span></span>
+            <span></span>
             <span>
-              <FaPython fill='#7b97ff' className={styles.skillicon} />
+              <p style={{ color: "#7b97ff" }}>
+                I have a ton of experience in python
+              </p>
+            </span>
+            <span>
+              <FaPython fill="#7b97ff" className={styles.skillicon} />
               <h4 style={{ color: "#7b97ff" }}>Python</h4>
             </span>
           </div>
           <div className={styles.skillbox}>
-            <span></span><span></span>
-            <span><p style={{ color: "#f5ff45" }}>Web Developer, Knows HTML, CSS, Javascript and tyepscript</p></span>
+            <span></span>
+            <span></span>
             <span>
-              <FaJs fill='#f5ff45' className={styles.skillicon} />
+              <p style={{ color: "#f5ff45" }}>
+                Web Developer, Knows HTML, CSS, Javascript and tyepscript
+              </p>
+            </span>
+            <span>
+              <FaJs fill="#f5ff45" className={styles.skillicon} />
               <h4 style={{ color: "#f5ff45" }}>Javascript</h4>
             </span>
           </div>
           <div className={styles.skillbox}>
-            <span></span><span></span>
-            <span><p style={{ color: "#0bd7ca" }}>Worked with React and NextJS and many more web frameworks</p></span>
+            <span></span>
+            <span></span>
             <span>
-              <FaReact fill='#0bd7ca' className={styles.skillicon} />
+              <p style={{ color: "#0bd7ca" }}>
+                Worked with React and NextJS and many more web frameworks
+              </p>
+            </span>
+            <span>
+              <FaReact fill="#0bd7ca" className={styles.skillicon} />
               <h4 style={{ color: "#0bd7ca" }}>React</h4>
             </span>
           </div>
           <div className={styles.skillbox}>
-            <span></span><span></span>
-            <span><p style={{ color: "#76ff59" }}>Worked with frameworks like express.js for server side scripting</p></span>
+            <span></span>
+            <span></span>
             <span>
-              <FaNodeJs fill='#76ff59' className={styles.skillicon} />
+              <p style={{ color: "#76ff59" }}>
+                Worked with frameworks like express.js for server side scripting
+              </p>
+            </span>
+            <span>
+              <FaNodeJs fill="#76ff59" className={styles.skillicon} />
               <h4 style={{ color: "#76ff59" }}>NodeJS</h4>
             </span>
           </div>
         </div>
       </div>
     </Tab>
-  )
-}
+  );
+};
 
-const BlogTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_state: Dispatch<SetStateAction<Boolean>> }) => {
+const BlogTab = ({
+  tab_state,
+  set_tab_state,
+}: {
+  tab_state: Boolean;
+  set_tab_state: Dispatch<SetStateAction<Boolean>>;
+}) => {
   return (
     <Tab title="Blog" isOpen={tab_state} setOpen={set_tab_state}>
       <div className={`${inter.className} ${styles.blogtab}`}>
@@ -132,27 +233,34 @@ const BlogTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_sta
         <p>Work under construction</p>
       </div>
     </Tab>
-  )
-}
+  );
+};
 
-const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_state: Dispatch<SetStateAction<Boolean>> }) => {
-
-  const [result, setResult] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [submited, setSubmited] = useState(false)
+const ContactTab = ({
+  tab_state,
+  set_tab_state,
+}: {
+  tab_state: Boolean;
+  set_tab_state: Dispatch<SetStateAction<Boolean>>;
+}) => {
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submited, setSubmited] = useState(false);
   const [formData, setFormData] = useState({
-    name: "", email: "", message: ""
-  })
+    name: "",
+    email: "",
+    message: "",
+  });
 
   useEffect(() => {
-    const s = getCookie("contact_form")
+    const s = getCookie("contact_form");
     if (s == "yes") {
-      setSubmited(true)
+      setSubmited(true);
     }
-  }, [submited])
+  }, [submited]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -163,20 +271,20 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
       },
       body: JSON.stringify({
         access_key: "deeb8091-a275-44b8-8c4d-f4ac4407dc8d",
-        ...formData
+        ...formData,
       }),
     });
 
     const data = await response.json();
 
     if (data.success) {
-      setLoading(false)
-      setCookie("contact_form", "yes", 1)
-      setSubmited(true)
-      setFormData({ name: "", email: "", message: "" })
+      setLoading(false);
+      setCookie("contact_form", "yes", 1);
+      setSubmited(true);
+      setFormData({ name: "", email: "", message: "" });
     } else {
       console.log("Error", data);
-      setLoading(false)
+      setLoading(false);
       setResult(data.message);
     }
   };
@@ -188,39 +296,65 @@ const ContactTab = ({ tab_state, set_tab_state }: { tab_state: Boolean, set_tab_
           <h2>Let{"'"}s get in touch! 👋</h2>
           <p>Don{"'"}t worry! your data will be safe</p>
         </div>
-        <form onSubmit={onSubmit} className={`${styles.contactform} ${loading ? styles.contactdisabled : ""}  ${submited ? styles.contactsubmited : ""}`}>
+        <form
+          onSubmit={onSubmit}
+          className={`${styles.contactform} ${
+            loading ? styles.contactdisabled : ""
+          }  ${submited ? styles.contactsubmited : ""}`}
+        >
           <p>{result}</p>
-          <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" placeholder="Enter Name" required={true} />
-          <input value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" placeholder="Enter Email" required={true} />
-          <textarea value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} cols={5} rows={8} placeholder='Enter your query' required={true} minLength={30}></textarea>
+          <input
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            type="text"
+            placeholder="Enter Name"
+            required={true}
+          />
+          <input
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            type="email"
+            placeholder="Enter Email"
+            required={true}
+          />
+          <textarea
+            value={formData.message}
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
+            cols={5}
+            rows={8}
+            placeholder="Enter your query"
+            required={true}
+            minLength={30}
+          ></textarea>
           <button type="submit">Submit</button>
         </form>
       </div>
     </Tab>
-  )
-}
-
-
-
+  );
+};
 
 const Taskbar = () => {
-  const [aboutTab, setAboutTab] = useState<Boolean>(false)
-  const [skillsTab, setSkillsTab] = useState<Boolean>(false)
-  const [blogTab, setBlogTab] = useState<Boolean>(false)
-  const [contactTab, setContactTab] = useState<Boolean>(false)
+  const [aboutTab, setAboutTab] = useState<Boolean>(false);
+  const [skillsTab, setSkillsTab] = useState<Boolean>(false);
+  const [blogTab, setBlogTab] = useState<Boolean>(false);
+  const [contactTab, setContactTab] = useState<Boolean>(false);
 
   const closeTabs = () => {
-    setAboutTab(false)
-    setSkillsTab(false)
-    setBlogTab(false)
-    setContactTab(false)
-  }
+    setAboutTab(false);
+    setSkillsTab(false);
+    setBlogTab(false);
+    setContactTab(false);
+  };
   const switchTab = (n: Number) => {
-    setAboutTab(n == 1 ? !aboutTab : false)
-    setSkillsTab(n == 2 ? !skillsTab : false)
-    setBlogTab(n == 3 ? !blogTab : false)
-    setContactTab(n == 4 ? !contactTab : false)
-  }
+    setAboutTab(n == 1 ? !aboutTab : false);
+    setSkillsTab(n == 2 ? !skillsTab : false);
+    setBlogTab(n == 3 ? !blogTab : false);
+    setContactTab(n == 4 ? !contactTab : false);
+  };
   return (
     <>
       <AboutTab tab_state={aboutTab} set_tab_state={setAboutTab} />
@@ -230,40 +364,62 @@ const Taskbar = () => {
       <div className={styles.taskbar}>
         <div className={styles.taskbarlist}>
           <button
-            className={!aboutTab && !skillsTab && !blogTab && !contactTab ? styles.taskbaritemselected : styles.taskbaritems}
-            onClick={closeTabs}>
-            <FaHome fill='white' /><span>Home</span>
+            className={
+              !aboutTab && !skillsTab && !blogTab && !contactTab
+                ? styles.taskbaritemselected
+                : styles.taskbaritems
+            }
+            onClick={closeTabs}
+          >
+            <FaHome fill="white" />
+            <span>Home</span>
           </button>
 
           <button
             id="aboutTab"
             className={
-              aboutTab ? styles.taskbaritemselected : styles.taskbaritems}
-            onClick={() => switchTab(1)}>
-            <IoTerminal fill='white' /><span>About</span>
+              aboutTab ? styles.taskbaritemselected : styles.taskbaritems
+            }
+            onClick={() => switchTab(1)}
+          >
+            <IoTerminal fill="white" />
+            <span>About</span>
           </button>
 
           <button
-            className={skillsTab ? styles.taskbaritemselected : styles.taskbaritems}
-            onClick={() => switchTab(2)}><FaCode fill="white" /><span>Skills</span>
+            className={
+              skillsTab ? styles.taskbaritemselected : styles.taskbaritems
+            }
+            onClick={() => switchTab(2)}
+          >
+            <FaCode fill="white" />
+            <span>Skills</span>
           </button>
 
           <button
-            className={blogTab ? styles.taskbaritemselected : styles.taskbaritems}
-            onClick={() => switchTab(3)}>
-            <FaHeadphones fill='white' /><span>Blog</span>
+            className={
+              blogTab ? styles.taskbaritemselected : styles.taskbaritems
+            }
+            onClick={() => switchTab(3)}
+          >
+            <FaHeadphones fill="white" />
+            <span>Blog</span>
           </button>
 
           <button
             id="contactTab"
-            className={contactTab ? styles.taskbaritemselected : styles.taskbaritems}
-            onClick={() => switchTab(4)}>
-            <FaPhoneAlt fill='white' /><span>Contact</span>
+            className={
+              contactTab ? styles.taskbaritemselected : styles.taskbaritems
+            }
+            onClick={() => switchTab(4)}
+          >
+            <FaPhoneAlt fill="white" />
+            <span>Contact</span>
           </button>
         </div>
-      </div >
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Taskbar
+export default Taskbar;

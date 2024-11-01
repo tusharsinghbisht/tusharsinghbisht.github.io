@@ -100,14 +100,14 @@
     backdrop-filter: blur(40px);
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    transition: 0.4s;
+    transition: 0.3s;
 
 }
 
 .tab {
     width: 70vw;
     height: 70vh;
-    animation: tabOpen 0.4s;
+    animation: tabOpen 0.3s;
 }
 
 @keyframes tabOpen {
@@ -149,9 +149,9 @@
 }
 
 .topbarleft div {
-    width: 16px;
+    width: 14px;
     aspect-ratio: 1;
-    margin: 12px 6px;
+    margin: 12px 4px;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 100%;
     cursor: pointer;
@@ -159,15 +159,23 @@
 
 .topbarleft div:nth-child(1) {
     background-color: rgb(242, 58, 58);
+    margin-left: 12px;
+}
+.topbarleft div:nth-child(1):hover {
+    background-color: rgb(198, 46, 46);
 }
 
 .topbarleft div:nth-child(2) {
     background-color: rgb(61, 241, 61);
 }
 
+.topbarleft div:nth-child(2):hover {
+    background-color: rgb(54, 198, 54);
+}
+
 .topbarleft div:nth-child(3) {
     background-color: rgb(234, 255, 0);
-    cursor:move;
+    /* cursor:move; */
 }
 .topbarleft div:nth-child(3):hover {
     background-color: rgb(173, 185, 34);
