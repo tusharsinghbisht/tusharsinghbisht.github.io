@@ -10,6 +10,7 @@ import React, {
 import styles from "./Taskbar.module.css";
 import {
   FaCode,
+  FaEnvelope,
   FaHeadphones,
   FaHome,
   FaJs,
@@ -295,6 +296,10 @@ const ContactTab = ({
         <div className={styles.contactinfo}>
           <h2>Let{"'"}s get in touch! 👋</h2>
           <p>Don{"'"}t worry! your data will be safe</p>
+          <div className={styles.contactData}>
+            <a href="mailto:hey@tusharr.xyz"><FaEnvelope fill="#e8e8e8" /></a>
+            <a href="tel:+919355186187"><FaPhoneAlt fill="#e8e8e8" /></a>
+          </div>
         </div>
         <form
           onSubmit={onSubmit}
