@@ -169,7 +169,7 @@ const SkillsTab = ({
             <span></span>
             <span>
               <p style={{ color: "#f4a05a" }}>
-                learning artificial intelligence and machine learning<br/>Member at AIMS DTU
+                learning artificial intelligence and machine learning<br/>Member at AIMS DTU.
               </p>
             </span>
             <span>
@@ -182,7 +182,7 @@ const SkillsTab = ({
             <span></span>
             <span>
               <p style={{ color: "#dbf0f1" }}>
-                exploring the field of cybersecurity and ethical hacking<br/>member at EHAX DTU. CTF player.
+                exploring the field of cybersecurity and ethical hacking<br/>member at EHAX DTU.<br/>CTF player.
               </p>
             </span>
             <span>
