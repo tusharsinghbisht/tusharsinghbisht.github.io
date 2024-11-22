@@ -20,6 +20,7 @@ import {
   FaReact,
   FaRobot,
   FaUserSecret,
+  FaWrench,
 } from "react-icons/fa";
 import { IoTerminal } from "react-icons/io5";
 import { Inter, Source_Code_Pro } from "next/font/google";
@@ -136,7 +137,7 @@ const AboutTab = ({
               display: "block",
             }}
             sequence={[
-              `👦 Hey i am Tushar (He/Him)!\n💁 I am a 18 year old boy\n💻 I am a passionate programmer\n💖 I love to code, works in different programming languages\n🔧 Currently an Engineering Student\n🕸️ Worked as Web Developer (Full Stack)\n👓 Currently learning DSA in C/C++ `,
+              `👦 Hey i am Tushar (He/Him)!\n💁 I am a 18 year old boy\n💻 I am a passionate programmer\n💖 I love to code, works in different programming languages\n🔧 Currently an Engineering Student at DTU (DCE)\n🕸️ Worked as Web Developer (Full Stack)\n👓 Currently learning DSA in C/C++ `,
               1000,
               "",
             ]}
@@ -265,6 +266,24 @@ const BlogTab = ({
   );
 };
 
+const ProjectTab = ({
+  tab_state,
+  set_tab_state,
+}: {
+  tab_state: Boolean;
+  set_tab_state: Dispatch<SetStateAction<Boolean>>;
+}) => {
+  return (
+    <Tab title="Projects" isOpen={tab_state} setOpen={set_tab_state}>
+      <div className={`${inter.className} ${styles.blogtab}`}>
+        <h1>My Projects 😎</h1>
+        <p>Work under construction</p>
+      </div>
+    </Tab>
+  )
+};
+
+
 const ContactTab = ({
   tab_state,
   set_tab_state,
@@ -379,6 +398,7 @@ const Taskbar = () => {
   const [skillsTab, setSkillsTab] = useState<Boolean>(false);
   const [blogTab, setBlogTab] = useState<Boolean>(false);
   const [contactTab, setContactTab] = useState<Boolean>(false);
+  const [projectTab, setProjectTab] = useState<Boolean>(false);
 
   const closeTabs = () => {
     setAboutTab(false);
@@ -390,13 +410,15 @@ const Taskbar = () => {
     setAboutTab(n == 1 ? !aboutTab : false);
     setSkillsTab(n == 2 ? !skillsTab : false);
     setBlogTab(n == 3 ? !blogTab : false);
-    setContactTab(n == 4 ? !contactTab : false);
+    setProjectTab(n == 4 ? !projectTab : false);
+    setContactTab(n == 5 ? !contactTab : false);
   };
   return (
     <>
       <AboutTab tab_state={aboutTab} set_tab_state={setAboutTab} />
       <SkillsTab tab_state={skillsTab} set_tab_state={setSkillsTab} />
       <BlogTab tab_state={blogTab} set_tab_state={setBlogTab} />
+      <ProjectTab tab_state={projectTab} set_tab_state={setProjectTab} />
       <ContactTab tab_state={contactTab} set_tab_state={setContactTab} />
       <div className={styles.taskbar}>
         <div className={styles.taskbarlist}>
@@ -444,11 +466,21 @@ const Taskbar = () => {
           </button>
 
           <button
+            className={
+              projectTab ? styles.taskbaritemselected : styles.taskbaritems
+            }
+            onClick={() => switchTab(4)}
+          >
+            <FaWrench fill="white" />
+            <span>Projects</span>
+          </button>
+
+          <button
             id="contactTab"
             className={
               contactTab ? styles.taskbaritemselected : styles.taskbaritems
             }
-            onClick={() => switchTab(4)}
+            onClick={() => switchTab(5)}
           >
             <FaPhoneAlt fill="white" />
             <span>Contact</span>
